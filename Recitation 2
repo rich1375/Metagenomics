@@ -1,0 +1,151 @@
+Question 1 (0.5 points) 
+ Saved
+We're going to use QIIME2 for amplicon data processing.  This is not the only option, but it is common.  See the webpage for the software:
+
+https://amplicon-docs.qiime2.org/en/latest/tutorials/moving-pictures.html
+
+Feel free to click around the site as there is a lot of material for helping new users.
+
+We are going to run the Moving-Pictures tutorial.  This data is older, but small enough to run a full study as homework and learn what you need to learn such that you could run a full size research study later.
+
+Look through this tutorial (don't install anything or try to run any commands yet).
+
+Write a short summary of what this study is about.
+
+The study looks at microbiome samples collected from humans at five different timepoints, at different body sites, with some of the people in the study using some antibotic treatment. The site states the data was created using the Earth Microbiome Project using a 16S sequncing approach and being processed using Illuimina HiSeq For the tuitoral, the number of people used were condensed to two people. Different bacteial and archea species were of interested to be identified from the samples.
+
+Question 2 (0.5 points) 
+ Saved
+This is a very basic tutorial with only a few samples and single-end reads.  Look through the other tutorials on the QIIME website or elsewhere online and find one that interests you that would be a little more complex.  
+
+Briefly summarize what your alternative study is about and why you find it interesting or useful.
+
+Note: if you have research data or data from a different software tutorial that you would like to run as your alternative study, that's OK.  Just keep in mind that if it is a modern research study, then you will spend a lot more time running it.
+
+I found the fecal microbiota transplant (FMT) tutorial to be interesting. The study was designed to look at children under the age of 18 with autism and gastrointestinal disorders who recieved a FMT to reduce the symptoms expressed both in their behavior and gut microbiome. 18 individuals received the FMT and 20 individuals were the controls that did not recieve the FMT. A longitudinal study was taken to observe gut microbiome shifts using fecal swabs, autism severity was ranked based off of the Childhood Austism Rating Scale, and gastointesital symptoms were ranked using the Gastrointestinal Symptom Rating Scale over 18 weeks. The tutorial features 5 control and 5 treated groups, with each individual having about 6-16 samples of data each. The data was also sequenced using Illumina MiSeq
+
+
+
+
+I found this tutorial to be useful because I recently conducted a longitudinal FMT study with 54 mice and am trying to figure out how to process or work with all the data I collected.
+
+
+Question 3 (1 point) 
+ Saved
+Now we need to install QIIME2 on the HPCC.  This software functions in a way that is not eligible to run through the module system, so we will be installing it using Miniforge3.  
+
+(Tutorial for using Miniforge3 is here: https://docs.icer.msu.edu/2024-09-25_Transitioning_from_Anaconda_to_Miniforge/)
+
+(ICER's tutorial for installing QIIME2 is a little out-of-date but can be a good reference: https://docs.icer.msu.edu/QIIME_2/)
+
+Use the script runInstallActivateQiime2Session2.sh to help you download the latest version of QIIME2 directly from the software website and install it in your directory.  You will use the conda activate command when you are ready to start running commands.  You use the conda deactivate command when you are done for the work session and ready to exit.  You can type commands by hand during the session or save the commands in a bash script and run it during the conda session.
+
+Copy/paste the last five lines from your Terminal window to show that you successfully installed QIIME2 and have started a conda session.
+
+bowtie2-2.5.4&nbsp; &nbsp; &nbsp; &nbsp; | 14.3 MB &nbsp; | ##################################### | 100%&nbsp;
+
+entrez-direct-22.4 &nbsp; | 14.0 MB &nbsp; | ##################################### | 100%&nbsp;
+
+bioconductor-biostri | 13.9 MB &nbsp; | ##################################### | 100%&nbsp;
+
+libstdcxx-devel_linu | 13.4 MB &nbsp; | ##################################### | 100%&nbsp;
+
+perl-5.32.1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | 12.7 MB &nbsp; | ##################################### | 100%&nbsp;
+
+&nbsp;... (more hidden) ...
+
+
+
+
+&nbsp;To activate this environment, use&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+#&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+# &nbsp; &nbsp; $ conda activate qiime2-amplicon-2024.5&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+#&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+# To deactivate an active environment, use &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+#&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+# &nbsp; &nbsp; $ conda deactivate &nbsp; &nbsp; &nbsp;
+
+Question 4 (0.5 points) 
+ Saved
+Now follow the moving-picture tutorial to download the data.  Use the script getMPdata.sh on D2L to help you.  If you are running out of space in your home directory, you might try putting this data on your scratch disk.
+
+Do ls -lah on the data once you have downloaded it and copy/paste the results below.
+
+rich1375@dev-amd24-h200:~$ ls -lah sample-metadata.tsv&nbsp;
+
+-rw-r----- 1 rich1375 CEDL-lab 2.1K Mar 30&nbsp; 2025 sample-metadata.tsv
+
+ 
+ Saved
+Now download the data for your alternative tutorial.  
+
+Note: put this data in a different directory than the moving-pictures data.  A lot of metagenomics software has commands to use all the data files in a directory all at once without you specifying which file to use.  If you combine data from both tutorials in the same directory, you will horribly confuse yourself and the software.
+
+Do ls -lah on the alternative data and copy/paste the results.
+
+2025-11-11 10:26:16 (9.11 MB/s) - 'sample-metadata.tsv' saved [11526]
+
+rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ ls -lah sample-metadata.tsv&nbsp;
+
+-rw-r----- 1 rich1375 CEDL-lab 12K Nov 11 10:26 sample-metadata.tsv
+
+Question 6 (0.5 points) 
+ Saved
+Now run through the moving-pictures tutorial to demultiplex your reads.  Use the tutorial on the QIIME2 website and the script runQiime_demux.sh on D2L to help you.
+
+Note: when you are running on the HPCC on the dev node, you can't run the qiime view commands.  Those only work in an interactive environment.  You can create an interactive environment on the HPCC by using OnDemand (https://icer.msu.edu/for-hpcc-users/Topic-of-the-Month/Web-Portal-to-HPCC-Resources), logging in, and clicking "Interactive Apps" and "Interactive Desktop".  
+
+Click "Launch" with the default values and it will create an interactive session, but you'll need to wait in the queue for your interactive node to become available.  If you use the default values, then you usually won't wait more than a few minutes.  
+
+The page will refresh when your session is ready and you can click to "Launch" it.  
+
+This will open a new window using VNC.  From here, click "Menu", and then "System Tools", and then "XTerm".
+
+This will open a window similar to the terminal that you are used to on the HPCC.  From here, use the commands in D2L to start a new conda session and start qiime.  
+
+Now you can type the qiime view commands and they will open new windows with the documents.  You can take screenshots from here.
+
+When you are done viewing the documents, type "q" to quit the environment and go back to XTerm. 
+
+When you are done with the interactive session, type "exit" on XTerm so it logs you out of the dev node.  Then go back to the window where you clicked "Launch" and click "Cancel".  This will close your interactive session.  You can also flip back to this window as you work to see how much time is left in your interactive session.  (Hey, other people are checking out nodes and running interactive sessions too.) 
+
+Note2: This is not the only way to add interactivity to commands on the HPCC.  If you already know or are willing to look up how to start an interactive session when logging in and have XTerm, XQuartz, etc installed on your laptop or workstation (depending on your operating system), then feel free to use that method.  It can work, but the MSU HPCC has a history of instability when using those tools.  If you ask iCER for help, they'll send you to OnDemand.
+
+Take a screenshot of one of the visualization documents you created during demultiplexing and upload it below.
+
+I keep running into an error when I try to load:
+
+rich1375@amr-187:~$ conda activate qiime2-amplicon-2024.5
+conda: command not found
+rich1375@amr-187:~$ bash runQiime_demux.sh&nbsp;
+runQiime_demux.sh: line 1: qiime: command not found
+runQiime_demux.sh: line 5: qiime: command not found
+runQiime_demux.sh: line 11: qiime: command not found
+runQiime_demux.sh: line 14: qiime: command not found
+runQiime_demux.sh: line 21: qiime: command not found
+runQiime_demux.sh: line 24: qiime: command not found
+runQiime_demux.sh: line 28: qiime: command not found
+
+Question 7 (0.5 points) 
+ Saved
+Visualize the statistics.  Write a short summary of what you see and what comments or questions you think about as you look at it.
+
+Note: you don't have to upload a screenshot.
+
+I'm having trouble moving forward with this step due to me getting stuck on the previous step.
+
+Question 8 (1 point) 
+ Saved
+Now switch to your alternative tutorial or dataset and demultiplex/denoise.  
+
+Select one visualization from this set and take a screenshot and upload.  
+
+Write one or two sentences about why you picked this visualization and what was interesting/useful about it.  It is perfectly fine to make comparisons between moving-pictures and your alternative dataset.
+
+Same response as the previous question, I'm having difficulty navigating the demultiplex step
