@@ -1,0 +1,42 @@
+Question 1 (1 point) 
+ Saved
+Go look around the Silva database website:
+
+https://www.arb-silva.de
+
+Find a function or feature that looks useful for your research or general interest.  Briefly summarize the feature and why it looks useful.
+
+The ACT: Alignment, Classification, and Tree service feature could be a useful tool in structuring phylogenetic trees. The website says it could align sequences, search and identify the closest common ancestor to the sequence submitted. This would be really helpful when trying to explain the evolutionary relationships between strains I'm trying to identify in lab. The current drawback from using this is that the feature is limited to ~1000 sequences so theres a chance there would be lots of missing information from the generated tree.
+
+Question 2 (1 point) 
+ Saved
+Go look around the Greengenes website:
+
+https://rnacentral.org/expert-database/greengenes
+
+Describe a function or feature of interest that is different from what you found on Silva.
+Visualizing RNA structues using R2DT. This feature allows you to view or predict RNA structures of interest. The research article linked to the feature states it generates the images by using a library composed of more than 3,000 previously identified RNA structures. From this millions of images have been able to be generated from this feature. The article does state that if an RNA sequence does not have a similar match to one that is already established in the database it cannot generate an image.
+
+Question 3 (1 point) 
+ Saved
+Now train a Greengenes dataset so we can add domain/phyla/etc metadata to our samples.  Use the QIIME2 Feature Classifier tutorial (https://docs.qiime2.org/2024.5/tutorials/feature-classifier/) and the runQiime2_taxonomy.sh script on the moving-pictures dataset.  Visualize taxonomy.qzv and click through the report.
+
+What do you notice or find interesting about the report?
+
+I find it intersting that some of the samples that have high confidence are listed as different genus (ie Roseiflexus, Methanopyrus, Nanoarchaeum, Ruminococcus, and Elizabethkingia)
+
+I find it intersting that some of the samples that have high confidence are listed as different genus (ie Roseiflexus, Methanopyrus, Nanoarchaeum, Ruminococcus, and Elizabethkingia)
+
+Question 4 (2 points) 
+ Saved
+We are caught in the middle of QIIME2 and the other databases making a major change to how they post database files.  The source of the controversy is that most scientists would like database files that are easy to transfer, easy to use, and already trained on their data.  This is accuracy, speed, and cost efficiency.  When we built our own classifier above, we used a very small older database that was posted on the QIIME2 website and easy to access.  But we wouldn't use it for a modern study.  In years gone by (even just last year), QIIME2 posted qiime objects that were based on Silva or Greengenes data and ready to use.  This was later found to be security risk and they don't post those anymore.  But the databases are also relocating their sequences, taxonomy, and other info and many of the pages don't link up yet.
+
+So go look around for database files that might be relevant to your alternate dataset or research interests.  Put a link.  It is not required that you run these on your dataset.
+
+https://gutmetanet.deepomics.org/database
+
+https://www.microbiomeatlas.org/species_summary.php
+
+
+
+I believe the human microbiome project was also a resource but I'm having trouble accessing it&nbsp;
