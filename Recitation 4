@@ -35,6 +35,946 @@ So go look around for database files that might be relevant to your alternate da
 
 https://gutmetanet.deepomics.org/database
 
+Last login: Mon Nov 17 20:04:27 on ttys000
+rachel@macbookpro ~ % ssh rich1375@hpcc.msu.edu
+rich1375@hpcc.msu.edu's password: 
+Last login: Mon Nov 17 20:05:38 2025 from 216.86.79.27
+                 __ _____ _____ ____      __  __ ____  _____ _____              
+                /_// ___// ___// _  ;    / /_/ // _  ;/ ___// ___/              
+               / // /__ / _/_ / _,.'    / __  // _,.'/ /__ / /__                
+              /_//____//____//_//_!    /_/ /_//_/   /____//____/                
+________________________________________________________________________________
+                                                                                
+          Welcome to Michigan State's High Performance Computing Center         
+                    ** Unauthorized access is prohibited **                     
+________________________________________________________________________________
+                                                                                
+    Development Nodes (usage)  For GPU development please use green nodes.      
+    ----------------------------------------------------------------------      
+    dev-amd24-h200  (low)  dev-amd20-v100  (low)  dev-amd20  (low)  
+    dev-amd24       (low)  dev-intel18     (low)                                                                                                    
+    Quota Information  (run 'quota' for more information)                       
+    -----------------------------------------------------                       
+    Path                                Quota % Files %                         
+    /mnt/home/rich1375                     24.3    16.0                         
+    /mnt/scratch/rich1375                   0.0     0.0                         
+    /mnt/research/CEDL-lab                 50.5     6.7                         
+    /mnt/research/CMSE_890_Fall2025_303    97.9     0.1                         
+                                                                                
+      |------------------------------------------------------------------------| 
+      |   The HPCC will be undergoing maintenance to complete the repair of    | 
+      |   water cooling components on Tuesday, November 18th. From 7AM to      | 
+      |   5PM on 11/18, the amd24 and intel18 nodes will be unavailable.       | 
+      |   Please see our service status for details.                           | 
+      |                                                                        | 
+      |   The HPCC will be unavailable on Thursday, December 18th for          | 
+      |   regularly scheduled maintenance. See the service status page for     | 
+      |   details.                                                             | 
+      |                                                                        | 
+      |   We have deployed a new home directory system. All MSU users are      | 
+      |   now using the new home system. As of October 1, 2025, access to      | 
+      |   your old home directory data has been permanently removed. All old   | 
+      |   home directories will be permanently purged on January 1, 2026.      | 
+      |   Please contact us with any questions related to this process.        | 
+      |                                                                        | 
+      |   Service status: https://blog.icer.msu.edu/                           | 
+      |   Documentation: https://docs.icer.msu.edu/                            | 
+      |   Contact form: https://contact.icer.msu.edu/                          | 
+      |                                                                        | 
+      |------------------------------------------------------------------------| 
+________________________________________________________________________________
+rich1375@gateway-01:~$ ssh dev-amd24-h200
+Last login: Mon Nov 17 20:10:33 2025 from gateway-01.dmz
+
+===
+Please note that processes on development nodes are limited to two hours of 
+CPU time; for longer-running jobs, please submit to the queue.
+
+Development nodes are a shared system; for information about performance 
+considerations please see: https://docs.icer.msu.edu/development_nodes/
+===
+
+rich1375@dev-amd24-h200:~$ export PATH=$PATH:$HOME/miniforge3/bin
+rich1375@dev-amd24-h200:~$ module purge
+rich1375@dev-amd24-h200:~$ module load Miniforge3
+rich1375@dev-amd24-h200:~$ conda activate qiime2-amplicon-2024.5
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ ls
+20250730_DNASeq_PE150         getMPdata.sh  runInstallActivateQiime2Session.sh
+Desktop                       Music         runQiime_demux.sh
+Documents                     ondemand      sample-metadata.tsv
+Downloads                     Pictures      Session4
+emp-single-end-sequences      Public        Templates
+emp-single-end-sequences.zip  R             Videos
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ sbatch runInstallActivateQiime2Session.sh
+sbatch: error: This does not look like a batch script.  The first
+sbatch: error: line must start with #! followed by the path to an interpreter.
+sbatch: error: For instance: #!/bin/sh
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ bash runInstallActivateQiime2Session.sh 
+Retrieving notices: done
+
+CondaValueError: prefix already exists: /mnt/home/rich1375/.conda/envs/qiime2-amplicon-2024.5
+
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ bash getMPdata.sh 
+Saved Visualization to: sample-metadata-viz.qzv
+Archive:  emp-single-end-sequences.zip
+replace emp-single-end-sequences/sequences.fastq.gz? [y]es, [n]o, [A]ll, [N]one, [r]ename: y
+  inflating: emp-single-end-sequences/sequences.fastq.gz  
+replace emp-single-end-sequences/barcodes.fastq.gz? [y]es, [n]o, [A]ll, [N]one, [r]ename: y
+  inflating: emp-single-end-sequences/barcodes.fastq.gz  
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ ls
+20250730_DNASeq_PE150         Public
+Desktop                       R
+Documents                     runInstallActivateQiime2Session.sh
+Downloads                     runQiime_demux.sh
+emp-single-end-sequences      sample-metadata.tsv
+emp-single-end-sequences.zip  sample-metadata-viz.qzv
+getMPdata.sh                  Session4
+Music                         Templates
+ondemand                      Videos
+Pictures
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ ls -lah emp-single-end-sequences
+total 28M
+drwxr-x--- 2 rich1375 CEDL-lab 4.0K Nov 17 20:28 .
+drwx------ 2 rich1375 CEDL-lab 4.0K Nov 17 20:27 ..
+-rw-r--r-- 1 rich1375 CEDL-lab 3.7M Jul 18 14:11 barcodes.fastq.gz
+-rw-r--r-- 1 rich1375 CEDL-lab  25M Jul 18 14:11 sequences.fastq.gz
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ cd  /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375$ ls
+CMSE890Sec304  qiime2-fmt-tutorial  Session3
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375$ cd qiime2-fmt-tutorial/
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ ls
+sample-metadata.tsv
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ ls -lah sample-metadata.tsv 
+-rw-r----- 1 rich1375 CEDL-lab 12K Nov 11 10:26 sample-metadata.tsv
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ vim runQiime_demux.sh
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ bash runQiime_demux.sh 
+Usage: qiime tools import [OPTIONS]
+
+  Import data to create a new QIIME 2 Artifact. See https://docs.qiime2.org/
+  for usage examples and details on the file types and associated semantic
+  types that can be imported.
+
+Options:
+  --type TEXT             The semantic type of the artifact that will be
+                          created upon importing. Use `qiime tools list-types`
+                          to see what importable semantic types are available
+                          in the current deployment.                [required]
+  --input-path PATH       Path to file or directory that should be imported.
+                                                                    [required]
+  --output-path ARTIFACT  Path where output artifact should be written.
+                                                                    [required]
+  --input-format TEXT     The format of the data to be imported. If not
+                          provided, data must be in the format expected by the
+                          semantic type provided via --type. Use `qiime tools
+                          list-formats --importable` to see which formats of
+                          input data are importable.
+  --validate-level [min|max]
+                          How much to validate the imported data before
+                          creating the artifact. A value of "max" will
+                          generally read the entire file or directory, whereas
+                          "min" will not usually do so.       [default: "max"]
+  --help                  Show this message and exit.
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--input-path': Path 'emp-single-end-sequences' does
+  not exist.
+Usage: qiime demux emp-single [OPTIONS]
+
+  Demultiplex sequence data (i.e., map barcode reads to sample ids) for data
+  generated with the Earth Microbiome Project (EMP) amplicon sequencing
+  protocol. Details about this protocol can be found at
+  http://www.earthmicrobiome.org/protocols-and-standards/
+
+Inputs:
+  --i-seqs ARTIFACT RawSequences | EMPSingleEndSequences |
+    EMPPairedEndSequences
+                       The single-end sequences to be demultiplexed.
+                                                                    [required]
+Parameters:
+  --m-barcodes-file METADATA
+  --m-barcodes-column COLUMN  MetadataColumn[Categorical]
+                       The sample metadata column containing the per-sample
+                       barcodes.                                    [required]
+  --p-golay-error-correction / --p-no-golay-error-correction
+                       Perform 12nt Golay error correction on the barcode
+                       reads.                                  [default: True]
+  --p-rev-comp-barcodes / --p-no-rev-comp-barcodes
+                       If provided, the barcode sequence reads will be
+                       reverse complemented prior to demultiplexing.
+                                                              [default: False]
+  --p-rev-comp-mapping-barcodes / --p-no-rev-comp-mapping-barcodes
+                       If provided, the barcode sequences in the sample
+                       metadata will be reverse complemented prior to
+                       demultiplexing.                        [default: False]
+  --p-ignore-description-mismatch / --p-no-ignore-description-mismatch
+                       If enabled, ignore mismatches in sequence record
+                       description fields.                    [default: False]
+Outputs:
+  --o-per-sample-sequences ARTIFACT SampleData[SequencesWithQuality]
+                       The resulting demultiplexed sequences.       [required]
+  --o-error-correction-details ARTIFACT ErrorCorrectionDetails
+                       Detail about the barcode error corrections.  [required]
+Miscellaneous:
+  --output-dir PATH    Output unspecified results to a directory
+  --verbose / --quiet  Display verbose output to stdout and/or stderr during
+                       execution of this action. Or silence output if
+                       execution is successful (silence is golden).
+  --example-data PATH  Write example data and exit.
+  --citations          Show citations and exit.
+  --help               Show this message and exit.
+
+Examples:
+  # ### example: demux
+  qiime demux emp-single \
+    --i-seqs sequences.qza \
+    --m-barcodes-file sample-metadata.tsv \
+    --m-barcodes-column barcode-sequence \
+    --o-per-sample-sequences demux.qza \
+    --o-error-correction-details demux-details.qza
+  
+
+                  There were some problems with the command:                  
+ (1/2) Invalid value for '--i-seqs': emp-single-end-sequences.qza does not
+  exist.
+ (2/2) Invalid value for '--m-barcodes-file': There was an issue with
+  retrieving column 'barcode-sequence' from the metadata.
+Usage: qiime demux summarize [OPTIONS]
+
+  Summarize counts per sample for all samples, and generate interactive
+  positional quality plots based on `n` randomly selected sequences.
+
+Inputs:
+  --i-data ARTIFACT SampleData[SequencesWithQuality |
+    PairedEndSequencesWithQuality | JoinedSequencesWithQuality]
+                       The demultiplexed sequences to be summarized.
+                                                                    [required]
+Parameters:
+  --p-n INTEGER        The number of sequences that should be selected at
+                       random for quality score plots. The quality plots will
+                       present the average positional qualities across all of
+                       the sequences selected. If input sequences are paired
+                       end, plots will be generated for both forward and
+                       reverse reads for the same `n` sequences.
+                                                              [default: 10000]
+Outputs:
+  --o-visualization VISUALIZATION
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH    Output unspecified results to a directory
+  --verbose / --quiet  Display verbose output to stdout and/or stderr during
+                       execution of this action. Or silence output if
+                       execution is successful (silence is golden).
+  --example-data PATH  Write example data and exit.
+  --citations          Show citations and exit.
+  --help               Show this message and exit.
+
+Examples:
+  # ### example: demux
+  qiime demux summarize \
+    --i-data demux.qza \
+    --o-visualization visualization.qzv
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-data': demux.qza does not exist.
+q       
+Usage: qiime dada2 denoise-single [OPTIONS]
+
+  This method denoises single-end sequences, dereplicates them, and filters
+  chimeras.
+
+Inputs:
+  --i-demultiplexed-seqs ARTIFACT SampleData[SequencesWithQuality |
+    PairedEndSequencesWithQuality]
+                          The single-end demultiplexed sequences to be
+                          denoised.                                 [required]
+Parameters:
+  --p-trunc-len INTEGER   Position at which sequences should be truncated due
+                          to decrease in quality. This truncates the 3' end of
+                          the of the input sequences, which will be the bases
+                          that were sequenced in the last cycles. Reads that
+                          are shorter than this value will be discarded. If 0
+                          is provided, no truncation or length filtering will
+                          be performed                              [required]
+  --p-trim-left INTEGER   Position at which sequences should be trimmed due
+                          to low quality. This trims the 5' end of the of the
+                          input sequences, which will be the bases that were
+                          sequenced in the first cycles.          [default: 0]
+  --p-max-ee NUMBER       Reads with number of expected errors higher than
+                          this value will be discarded.         [default: 2.0]
+  --p-trunc-q INTEGER     Reads are truncated at the first instance of a
+                          quality score less than or equal to this value. If
+                          the resulting read is then shorter than `trunc-len`,
+                          it is discarded.                        [default: 2]
+  --p-pooling-method TEXT Choices('independent', 'pseudo')
+                          The method used to pool samples for denoising.
+                          "independent": Samples are denoised independently.
+                          "pseudo": The pseudo-pooling method is used to
+                          approximate pooling of samples. In short, samples
+                          are denoised independently once, ASVs detected in at
+                          least 2 samples are recorded, and samples are
+                          denoised independently a second time, but this time
+                          with prior knowledge of the recorded ASVs and thus
+                          higher sensitivity to those ASVs.
+                                                      [default: 'independent']
+  --p-chimera-method TEXT Choices('consensus', 'none', 'pooled')
+                          The method used to remove chimeras. "none": No
+                          chimera removal is performed. "pooled": All reads
+                          are pooled prior to chimera detection. "consensus":
+                          Chimeras are detected in samples individually, and
+                          sequences found chimeric in a sufficient fraction of
+                          samples are removed.          [default: 'consensus']
+  --p-min-fold-parent-over-abundance NUMBER
+                          The minimum abundance of potential parents of a
+                          sequence being tested as chimeric, expressed as a
+                          fold-change versus the abundance of the sequence
+                          being tested. Values should be greater than or equal
+                          to 1 (i.e. parents should be more abundant than the
+                          sequence being tested). This parameter has no effect
+                          if chimera-method is "none".          [default: 1.0]
+  --p-allow-one-off / --p-no-allow-one-off
+                          Bimeras that are one-off from exact are also
+                          identified if the `allow-one-off` argument is
+                          True.If True, a sequence will be identified as
+                          bimera if it is one mismatch or indel away from an
+                          exact bimera.                       [default: False]
+  --p-n-threads NTHREADS  The number of threads to use for multithreaded
+                          processing. If 0 is provided, all available cores
+                          will be used.                           [default: 1]
+  --p-n-reads-learn INTEGER
+                          The number of reads to use when training the error
+                          model. Smaller numbers will result in a shorter run
+                          time but a less reliable error model.
+                                                            [default: 1000000]
+  --p-hashed-feature-ids / --p-no-hashed-feature-ids
+                          If true, the feature ids in the resulting table
+                          will be presented as hashes of the sequences
+                          defining each feature. The hash will always be the
+                          same for the same sequence so this allows feature
+                          tables to be merged across runs of this method. You
+                          should only merge tables if the exact same
+                          parameters are used for each run.    [default: True]
+  --p-retain-all-samples / --p-no-retain-all-samples
+                          If True all samples input to dada2 will be retained
+                          in the output of dada2, if false samples with zero
+                          total frequency are removed from the table.
+                                                               [default: True]
+Outputs:
+  --o-table ARTIFACT FeatureTable[Frequency]
+                          The resulting feature table.              [required]
+  --o-representative-sequences ARTIFACT FeatureData[Sequence]
+                          The resulting feature sequences. Each feature in
+                          the feature table will be represented by exactly one
+                          sequence.                                 [required]
+  --o-denoising-stats ARTIFACT SampleData[DADA2Stats]
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH       Output unspecified results to a directory
+  --verbose / --quiet     Display verbose output to stdout and/or stderr
+                          during execution of this action. Or silence output
+                          if execution is successful (silence is golden).
+  --example-data PATH     Write example data and exit.
+  --citations             Show citations and exit.
+  --help                  Show this message and exit.
+
+Examples:
+  # ### example: denoise single
+  qiime dada2 denoise-single \
+    --i-demultiplexed-seqs demux-single.qza \
+    --p-trim-left 0 \
+    --p-trunc-len 120 \
+    --o-representative-sequences representative-sequences.qza \
+    --o-table table.qza \
+    --o-denoising-stats denoising-stats.qza
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-demultiplexed-seqs': demux.qza does not exist.
+There was an issue with loading the file stats.qza as metadata:
+
+  Metadata file path doesn't exist, or the path points to something other than a file. Please check that the path exists, has read permissions, and points to a regular file (not a directory): stats.qza
+
+  There may be more errors present in the metadata file. To get a full report, sample/feature metadata files can be validated with Keemei: https://keemei.qiime2.org
+
+  Find details on QIIME 2 metadata requirements here: https://docs.qiime2.org/2024.5/tutorials/metadata/
+
+Usage: qiime feature-table summarize [OPTIONS]
+
+  Generate visual and tabular summaries of a feature table.
+
+Inputs:
+  --i-table ARTIFACT FeatureTable[Frequency | PresenceAbsence]
+                       The feature table to be summarized.          [required]
+Parameters:
+  --m-sample-metadata-file METADATA...
+    (multiple          The sample metadata.
+     arguments will    
+     be merged)                                                     [optional]
+Outputs:
+  --o-visualization VISUALIZATION
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH    Output unspecified results to a directory
+  --verbose / --quiet  Display verbose output to stdout and/or stderr during
+                       execution of this action. Or silence output if
+                       execution is successful (silence is golden).
+  --example-data PATH  Write example data and exit.
+  --citations          Show citations and exit.
+  --help               Show this message and exit.
+
+Examples:
+  # ### example: feature table summarize
+  qiime feature-table summarize \
+    --i-table feature-table.qza \
+    --o-visualization table.qzv
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-table': table.qza does not exist.
+Usage: qiime feature-table tabulate-seqs [OPTIONS]
+
+  Generate tabular view of feature identifier to sequence mapping, including
+  links to BLAST each sequence against the NCBI nt database.
+
+Inputs:
+  --i-data ARTIFACT FeatureData[Sequence | AlignedSequence]
+                         The feature sequences to be tabulated.     [required]
+  --i-taxonomy ARTIFACTS... Collection[FeatureData[Taxonomy]]
+                         The taxonomic classifications of the tabulated
+                         features.                                  [optional]
+Parameters:
+  --m-metadata-file METADATA...
+    (multiple            Any additional metadata for the tabulated features.
+     arguments will be   
+     merged)                                                        [optional]
+  --p-merge-method TEXT Choices('strict', 'union', 'intersect')
+                         Method that joins data sets       [default: 'strict']
+Outputs:
+  --o-visualization VISUALIZATION
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH      Output unspecified results to a directory
+  --verbose / --quiet    Display verbose output to stdout and/or stderr
+                         during execution of this action. Or silence output if
+                         execution is successful (silence is golden).
+  --example-data PATH    Write example data and exit.
+  --citations            Show citations and exit.
+  --help                 Show this message and exit.
+
+Examples:
+  # ### example: feature table tabulate seqs
+  qiime feature-table tabulate-seqs \
+    --i-data rep-seqs.qza \
+    --o-visualization rep-seqs.qzv
+  
+  # ### example: feature table tabulate seqs single taxon
+  qiime feature-table tabulate-seqs \
+    --i-data rep-seqs-single-taxon.qza \
+    --i-taxonomy single-taxonomy.qza \
+    --o-visualization rep-seqs.qzv
+  
+  # ### example: feature table tabulate seqs multi taxon
+  qiime feature-table tabulate-seqs \
+    --i-data rep-seqs-multi-taxon.qza \
+    --i-taxonomy multi-taxonomy/ \
+    --o-visualization rep-seqs.qzv
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-data': rep-seqs.qza does not exist.
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ q
+-bash: q: command not found
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ cd ..
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375$ pwd
+/mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375$ cd  /mnt/home/rich1375 
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ ls
+20250730_DNASeq_PE150         Public
+Desktop                       R
+Documents                     runInstallActivateQiime2Session.sh
+Downloads                     runQiime_demux.sh
+emp-single-end-sequences      sample-metadata.tsv
+emp-single-end-sequences.zip  sample-metadata-viz.qzv
+getMPdata.sh                  Session4
+Music                         Templates
+ondemand                      Videos
+Pictures
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv emp-single-end-sequences /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ ls
+20250730_DNASeq_PE150         Public
+Desktop                       R
+Documents                     runInstallActivateQiime2Session.sh
+Downloads                     runQiime_demux.sh
+emp-single-end-sequences.zip  sample-metadata.tsv
+getMPdata.sh                  sample-metadata-viz.qzv
+Music                         Session4
+ondemand                      Templates
+Pictures                      Videos
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv emp-single-end-sequences.zip
+mv: missing destination file operand after 'emp-single-end-sequences.zip'
+Try 'mv --help' for more information.
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv emp-single-end-sequences.zip /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv runInstallActivateQiime2Session.sh /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv  runQiime_demux.sh /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv runQiime_demux.sh /mnt/scratch/rich1375
+mv: cannot stat 'runQiime_demux.sh': No such file or directory
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ ls
+20250730_DNASeq_PE150  getMPdata.sh  Public                   Session4
+Desktop                Music         R                        Templates
+Documents              ondemand      sample-metadata.tsv      Videos
+Downloads              Pictures      sample-metadata-viz.qzv
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv sample-metadata.tsv /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv sample-metadata-viz.qzv /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ ls
+20250730_DNASeq_PE150  Downloads     ondemand  R          Videos
+Desktop                getMPdata.sh  Pictures  Session4
+Documents              Music         Public    Templates
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv getMPdata.sh 
+mv: missing destination file operand after 'getMPdata.sh'
+Try 'mv --help' for more information.
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ mv getMPdata.sh /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:~$ cd /mnt/scratch/rich1375
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375$ ls
+CMSE890Sec304                 runInstallActivateQiime2Session.sh
+emp-single-end-sequences      runQiime_demux.sh
+emp-single-end-sequences.zip  sample-metadata.tsv
+getMPdata.sh                  sample-metadata-viz.qzv
+qiime2-fmt-tutorial           Session3
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375$ bash runQiime_demux.sh 
+Imported emp-single-end-sequences as EMPSingleEndDirFmt to emp-single-end-sequences.qza
+Saved SampleData[SequencesWithQuality] to: demux.qza
+Saved ErrorCorrectionDetails to: demux-details.qza
+Saved Visualization to: demux.qzv
+Saved FeatureTable[Frequency] to: table.qza
+Saved FeatureData[Sequence] to: rep-seqs.qza
+Saved SampleData[DADA2Stats] to: stats.qza
+Saved Visualization to: stats.qzv
+Saved Visualization to: table.qzv
+Saved Visualization to: rep-seqs.qzv
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375$ cd qiime2-fmt-tutorial/
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ ls
+runQiime_demux.sh  sample-metadata.tsv
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ vim runQiime_demux.sh 
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ bash runQiime_demux.sh 
+Usage: qiime tools import [OPTIONS]
+
+  Import data to create a new QIIME 2 Artifact. See https://docs.qiime2.org/
+  for usage examples and details on the file types and associated semantic
+  types that can be imported.
+
+Options:
+  --type TEXT             The semantic type of the artifact that will be
+                          created upon importing. Use `qiime tools list-types`
+                          to see what importable semantic types are available
+                          in the current deployment.                [required]
+  --input-path PATH       Path to file or directory that should be imported.
+                                                                    [required]
+  --output-path ARTIFACT  Path where output artifact should be written.
+                                                                    [required]
+  --input-format TEXT     The format of the data to be imported. If not
+                          provided, data must be in the format expected by the
+                          semantic type provided via --type. Use `qiime tools
+                          list-formats --importable` to see which formats of
+                          input data are importable.
+  --validate-level [min|max]
+                          How much to validate the imported data before
+                          creating the artifact. A value of "max" will
+                          generally read the entire file or directory, whereas
+                          "min" will not usually do so.       [default: "max"]
+  --help                  Show this message and exit.
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--input-path': Path 'sample-metadata' does not
+  exist.
+Usage: qiime demux emp-single [OPTIONS]
+
+  Demultiplex sequence data (i.e., map barcode reads to sample ids) for data
+  generated with the Earth Microbiome Project (EMP) amplicon sequencing
+  protocol. Details about this protocol can be found at
+  http://www.earthmicrobiome.org/protocols-and-standards/
+
+Inputs:
+  --i-seqs ARTIFACT RawSequences | EMPSingleEndSequences |
+    EMPPairedEndSequences
+                       The single-end sequences to be demultiplexed.
+                                                                    [required]
+Parameters:
+  --m-barcodes-file METADATA
+  --m-barcodes-column COLUMN  MetadataColumn[Categorical]
+                       The sample metadata column containing the per-sample
+                       barcodes.                                    [required]
+  --p-golay-error-correction / --p-no-golay-error-correction
+                       Perform 12nt Golay error correction on the barcode
+                       reads.                                  [default: True]
+  --p-rev-comp-barcodes / --p-no-rev-comp-barcodes
+                       If provided, the barcode sequence reads will be
+                       reverse complemented prior to demultiplexing.
+                                                              [default: False]
+  --p-rev-comp-mapping-barcodes / --p-no-rev-comp-mapping-barcodes
+                       If provided, the barcode sequences in the sample
+                       metadata will be reverse complemented prior to
+                       demultiplexing.                        [default: False]
+  --p-ignore-description-mismatch / --p-no-ignore-description-mismatch
+                       If enabled, ignore mismatches in sequence record
+                       description fields.                    [default: False]
+Outputs:
+  --o-per-sample-sequences ARTIFACT SampleData[SequencesWithQuality]
+                       The resulting demultiplexed sequences.       [required]
+  --o-error-correction-details ARTIFACT ErrorCorrectionDetails
+                       Detail about the barcode error corrections.  [required]
+Miscellaneous:
+  --output-dir PATH    Output unspecified results to a directory
+  --verbose / --quiet  Display verbose output to stdout and/or stderr during
+                       execution of this action. Or silence output if
+                       execution is successful (silence is golden).
+  --example-data PATH  Write example data and exit.
+  --citations          Show citations and exit.
+  --help               Show this message and exit.
+
+Examples:
+  # ### example: demux
+  qiime demux emp-single \
+    --i-seqs sequences.qza \
+    --m-barcodes-file sample-metadata.tsv \
+    --m-barcodes-column barcode-sequence \
+    --o-per-sample-sequences demux.qza \
+    --o-error-correction-details demux-details.qza
+  
+
+                  There were some problems with the command:                  
+ (1/2) Invalid value for '--i-seqs': sample-metadata.qza does not exist.
+ (2/2) Invalid value for '--m-barcodes-file': There was an issue with
+  retrieving column 'barcode-sequence' from the metadata.
+Usage: qiime demux summarize [OPTIONS]
+
+  Summarize counts per sample for all samples, and generate interactive
+  positional quality plots based on `n` randomly selected sequences.
+
+Inputs:
+  --i-data ARTIFACT SampleData[SequencesWithQuality |
+    PairedEndSequencesWithQuality | JoinedSequencesWithQuality]
+                       The demultiplexed sequences to be summarized.
+                                                                    [required]
+Parameters:
+  --p-n INTEGER        The number of sequences that should be selected at
+                       random for quality score plots. The quality plots will
+                       present the average positional qualities across all of
+                       the sequences selected. If input sequences are paired
+                       end, plots will be generated for both forward and
+                       reverse reads for the same `n` sequences.
+                                                              [default: 10000]
+Outputs:
+  --o-visualization VISUALIZATION
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH    Output unspecified results to a directory
+  --verbose / --quiet  Display verbose output to stdout and/or stderr during
+                       execution of this action. Or silence output if
+                       execution is successful (silence is golden).
+  --example-data PATH  Write example data and exit.
+  --citations          Show citations and exit.
+  --help               Show this message and exit.
+
+Examples:
+  # ### example: demux
+  qiime demux summarize \
+    --i-data demux.qza \
+    --o-visualization visualization.qzv
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-data': demux.qza does not exist.
+Usage: qiime dada2 denoise-single [OPTIONS]
+
+  This method denoises single-end sequences, dereplicates them, and filters
+  chimeras.
+
+Inputs:
+  --i-demultiplexed-seqs ARTIFACT SampleData[SequencesWithQuality |
+    PairedEndSequencesWithQuality]
+                          The single-end demultiplexed sequences to be
+                          denoised.                                 [required]
+Parameters:
+  --p-trunc-len INTEGER   Position at which sequences should be truncated due
+                          to decrease in quality. This truncates the 3' end of
+                          the of the input sequences, which will be the bases
+                          that were sequenced in the last cycles. Reads that
+                          are shorter than this value will be discarded. If 0
+                          is provided, no truncation or length filtering will
+                          be performed                              [required]
+  --p-trim-left INTEGER   Position at which sequences should be trimmed due
+                          to low quality. This trims the 5' end of the of the
+                          input sequences, which will be the bases that were
+                          sequenced in the first cycles.          [default: 0]
+  --p-max-ee NUMBER       Reads with number of expected errors higher than
+                          this value will be discarded.         [default: 2.0]
+  --p-trunc-q INTEGER     Reads are truncated at the first instance of a
+                          quality score less than or equal to this value. If
+                          the resulting read is then shorter than `trunc-len`,
+                          it is discarded.                        [default: 2]
+  --p-pooling-method TEXT Choices('independent', 'pseudo')
+                          The method used to pool samples for denoising.
+                          "independent": Samples are denoised independently.
+                          "pseudo": The pseudo-pooling method is used to
+                          approximate pooling of samples. In short, samples
+                          are denoised independently once, ASVs detected in at
+                          least 2 samples are recorded, and samples are
+                          denoised independently a second time, but this time
+                          with prior knowledge of the recorded ASVs and thus
+                          higher sensitivity to those ASVs.
+                                                      [default: 'independent']
+  --p-chimera-method TEXT Choices('consensus', 'none', 'pooled')
+                          The method used to remove chimeras. "none": No
+                          chimera removal is performed. "pooled": All reads
+                          are pooled prior to chimera detection. "consensus":
+                          Chimeras are detected in samples individually, and
+                          sequences found chimeric in a sufficient fraction of
+                          samples are removed.          [default: 'consensus']
+  --p-min-fold-parent-over-abundance NUMBER
+                          The minimum abundance of potential parents of a
+                          sequence being tested as chimeric, expressed as a
+                          fold-change versus the abundance of the sequence
+                          being tested. Values should be greater than or equal
+                          to 1 (i.e. parents should be more abundant than the
+                          sequence being tested). This parameter has no effect
+                          if chimera-method is "none".          [default: 1.0]
+  --p-allow-one-off / --p-no-allow-one-off
+                          Bimeras that are one-off from exact are also
+                          identified if the `allow-one-off` argument is
+                          True.If True, a sequence will be identified as
+                          bimera if it is one mismatch or indel away from an
+                          exact bimera.                       [default: False]
+  --p-n-threads NTHREADS  The number of threads to use for multithreaded
+                          processing. If 0 is provided, all available cores
+                          will be used.                           [default: 1]
+  --p-n-reads-learn INTEGER
+                          The number of reads to use when training the error
+                          model. Smaller numbers will result in a shorter run
+                          time but a less reliable error model.
+                                                            [default: 1000000]
+  --p-hashed-feature-ids / --p-no-hashed-feature-ids
+                          If true, the feature ids in the resulting table
+                          will be presented as hashes of the sequences
+                          defining each feature. The hash will always be the
+                          same for the same sequence so this allows feature
+                          tables to be merged across runs of this method. You
+                          should only merge tables if the exact same
+                          parameters are used for each run.    [default: True]
+  --p-retain-all-samples / --p-no-retain-all-samples
+                          If True all samples input to dada2 will be retained
+                          in the output of dada2, if false samples with zero
+                          total frequency are removed from the table.
+                                                               [default: True]
+Outputs:
+  --o-table ARTIFACT FeatureTable[Frequency]
+                          The resulting feature table.              [required]
+  --o-representative-sequences ARTIFACT FeatureData[Sequence]
+                          The resulting feature sequences. Each feature in
+                          the feature table will be represented by exactly one
+                          sequence.                                 [required]
+  --o-denoising-stats ARTIFACT SampleData[DADA2Stats]
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH       Output unspecified results to a directory
+  --verbose / --quiet     Display verbose output to stdout and/or stderr
+                          during execution of this action. Or silence output
+                          if execution is successful (silence is golden).
+  --example-data PATH     Write example data and exit.
+  --citations             Show citations and exit.
+  --help                  Show this message and exit.
+
+Examples:
+  # ### example: denoise single
+  qiime dada2 denoise-single \
+    --i-demultiplexed-seqs demux-single.qza \
+    --p-trim-left 0 \
+    --p-trunc-len 120 \
+    --o-representative-sequences representative-sequences.qza \
+    --o-table table.qza \
+    --o-denoising-stats denoising-stats.qza
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-demultiplexed-seqs': demux.qza does not exist.
+There was an issue with loading the file stats.qza as metadata:
+
+  Metadata file path doesn't exist, or the path points to something other than a file. Please check that the path exists, has read permissions, and points to a regular file (not a directory): stats.qza
+
+  There may be more errors present in the metadata file. To get a full report, sample/feature metadata files can be validated with Keemei: https://keemei.qiime2.org
+
+  Find details on QIIME 2 metadata requirements here: https://docs.qiime2.org/2024.5/tutorials/metadata/
+
+Usage: qiime feature-table summarize [OPTIONS]
+
+  Generate visual and tabular summaries of a feature table.
+
+Inputs:
+  --i-table ARTIFACT FeatureTable[Frequency | PresenceAbsence]
+                       The feature table to be summarized.          [required]
+Parameters:
+  --m-sample-metadata-file METADATA...
+    (multiple          The sample metadata.
+     arguments will    
+     be merged)                                                     [optional]
+Outputs:
+  --o-visualization VISUALIZATION
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH    Output unspecified results to a directory
+  --verbose / --quiet  Display verbose output to stdout and/or stderr during
+                       execution of this action. Or silence output if
+                       execution is successful (silence is golden).
+  --example-data PATH  Write example data and exit.
+  --citations          Show citations and exit.
+  --help               Show this message and exit.
+
+Examples:
+  # ### example: feature table summarize
+  qiime feature-table summarize \
+    --i-table feature-table.qza \
+    --o-visualization table.qzv
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-table': table.qza does not exist.
+Usage: qiime feature-table tabulate-seqs [OPTIONS]
+
+  Generate tabular view of feature identifier to sequence mapping, including
+  links to BLAST each sequence against the NCBI nt database.
+
+Inputs:
+  --i-data ARTIFACT FeatureData[Sequence | AlignedSequence]
+                         The feature sequences to be tabulated.     [required]
+  --i-taxonomy ARTIFACTS... Collection[FeatureData[Taxonomy]]
+                         The taxonomic classifications of the tabulated
+                         features.                                  [optional]
+Parameters:
+  --m-metadata-file METADATA...
+    (multiple            Any additional metadata for the tabulated features.
+     arguments will be   
+     merged)                                                        [optional]
+  --p-merge-method TEXT Choices('strict', 'union', 'intersect')
+                         Method that joins data sets       [default: 'strict']
+Outputs:
+  --o-visualization VISUALIZATION
+                                                                    [required]
+Miscellaneous:
+  --output-dir PATH      Output unspecified results to a directory
+  --verbose / --quiet    Display verbose output to stdout and/or stderr
+                         during execution of this action. Or silence output if
+                         execution is successful (silence is golden).
+  --example-data PATH    Write example data and exit.
+  --citations            Show citations and exit.
+  --help                 Show this message and exit.
+
+Examples:
+  # ### example: feature table tabulate seqs
+  qiime feature-table tabulate-seqs \
+    --i-data rep-seqs.qza \
+    --o-visualization rep-seqs.qzv
+  
+  # ### example: feature table tabulate seqs single taxon
+  qiime feature-table tabulate-seqs \
+    --i-data rep-seqs-single-taxon.qza \
+    --i-taxonomy single-taxonomy.qza \
+    --o-visualization rep-seqs.qzv
+  
+  # ### example: feature table tabulate seqs multi taxon
+  qiime feature-table tabulate-seqs \
+    --i-data rep-seqs-multi-taxon.qza \
+    --i-taxonomy multi-taxonomy/ \
+    --o-visualization rep-seqs.qzv
+  
+
+                    There was a problem with the command:                     
+ (1/1) Invalid value for '--i-data': rep-seqs.qza does not exist.
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fm(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fm(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ v
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ vim runQiime_demux.sh 
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ wget https://data.qiime2.org/2024.5/common/silva-138-99-seqs.qza
+--2025-11-17 21:48:14--  https://data.qiime2.org/2024.5/common/silva-138-99-seqs.qza
+Resolving data.qiime2.org (data.qiime2.org)... 54.200.1.12
+Connecting to data.qiime2.org (data.qiime2.org)|54.200.1.12|:443... connected.
+HTTP request sent, awaiting response... 302 FOUND
+Location: https://qiime2-data.s3-us-west-2.amazonaws.com/2024.5/common/silva-138-99-seqs.qza [following]
+--2025-11-17 21:48:15--  https://qiime2-data.s3-us-west-2.amazonaws.com/2024.5/common/silva-138-99-seqs.qza
+Resolving qiime2-data.s3-us-west-2.amazonaws.com (qiime2-data.s3-us-west-2.amazonaws.com)... 52.218.182.41, 52.218.213.161, 52.92.152.154, ...
+Connecting to qiime2-data.s3-us-west-2.amazonaws.com (qiime2-data.s3-us-west-2.amazonaws.com)|52.218.182.41|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 97137296 (93M) [binary/octet-stream]
+Saving to: ‘silva-138-99-seqs.qza’
+
+silva-138-99-seqs.q 100%[===================>]  92.64M  7.47MB/s    in 9.2s    
+
+2025-11-17 21:48:24 (10.1 MB/s) - ‘silva-138-99-seqs.qza’ saved [97137296/97137296]
+
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ wget https://data.qiime2.org/2024.5/common/silva-138-99-tax.qza
+--2025-11-17 21:48:31--  https://data.qiime2.org/2024.5/common/silva-138-99-tax.qza
+Resolving data.qiime2.org (data.qiime2.org)... 54.200.1.12
+Connecting to data.qiime2.org (data.qiime2.org)|54.200.1.12|:443... connected.
+HTTP request sent, awaiting response... 302 FOUND
+Location: https://qiime2-data.s3-us-west-2.amazonaws.com/2024.5/common/silva-138-99-tax.qza [following]
+--2025-11-17 21:48:31--  https://qiime2-data.s3-us-west-2.amazonaws.com/2024.5/common/silva-138-99-tax.qza
+Resolving qiime2-data.s3-us-west-2.amazonaws.com (qiime2-data.s3-us-west-2.amazonaws.com)... 3.5.79.20, 3.5.77.176, 52.218.221.89, ...
+Connecting to qiime2-data.s3-us-west-2.amazonaws.com (qiime2-data.s3-us-west-2.amazonaws.com)|3.5.79.20|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6853359 (6.5M) [binary/octet-stream]
+Saving to: ‘silva-138-99-tax.qza’
+
+silva-138-99-tax.qz 100%[===================>]   6.54M  8.80MB/s    in 0.7s    
+
+2025-11-17 21:48:32 (8.80 MB/s) - ‘silva-138-99-tax.qza’ saved [6853359/6853359]
+
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ vim runQiime2_taxonomy.sh
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ bash runQiime2_taxonomy.sh 
+--2025-11-17 21:50:19--  https://data.qiime2.org/2024.5/tutorials/training-feature-classifiers/85_otus.fasta
+Resolving data.qiime2.org (data.qiime2.org)... 54.200.1.12
+Connecting to data.qiime2.org (data.qiime2.org)|54.200.1.12|:443... connected.
+HTTP request sent, awaiting response... 302 FOUND
+Location: https://s3-us-west-2.amazonaws.com/qiime2-data/2024.5/tutorials/training-feature-classifiers/85_otus.fasta [following]
+--2025-11-17 21:50:19--  https://s3-us-west-2.amazonaws.com/qiime2-data/2024.5/tutorials/training-feature-classifiers/85_otus.fasta
+Resolving s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)... 52.218.217.40, 52.218.183.40, 52.218.233.208, ...
+Connecting to s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)|52.218.217.40|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 7324324 (7.0M) [binary/octet-stream]
+Saving to: ‘85_otus.fasta’
+
+85_otus.fasta       100%[===================>]   6.98M  8.32MB/s    in 0.8s    
+
+2025-11-17 21:50:21 (8.32 MB/s) - ‘85_otus.fasta’ saved [7324324/7324324]
+
+--2025-11-17 21:50:21--  https://data.qiime2.org/2024.2/tutorials/training-feature-classifiers/85_otu_taxonomy.txt
+Resolving data.qiime2.org (data.qiime2.org)... 54.200.1.12
+Connecting to data.qiime2.org (data.qiime2.org)|54.200.1.12|:443... connected.
+HTTP request sent, awaiting response... 302 FOUND
+Location: https://s3-us-west-2.amazonaws.com/qiime2-data/2024.2/tutorials/training-feature-classifiers/85_otu_taxonomy.txt [following]
+--2025-11-17 21:50:21--  https://s3-us-west-2.amazonaws.com/qiime2-data/2024.2/tutorials/training-feature-classifiers/85_otu_taxonomy.txt
+Resolving s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)... 52.92.249.240, 52.92.224.248, 52.218.234.48, ...
+Connecting to s3-us-west-2.amazonaws.com (s3-us-west-2.amazonaws.com)|52.92.249.240|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 452277 (442K) [text/plain]
+Saving to: ‘85_otu_taxonomy.txt’
+
+85_otu_taxonomy.txt 100%[===================>] 441.68K  1.55MB/s    in 0.3s    
+
+2025-11-17 21:50:22 (1.55 MB/s) - ‘85_otu_taxonomy.txt’ saved [452277/452277]
+
+Imported 85_otus.fasta as DNASequencesDirectoryFormat to 85_otus.qza
+Imported 85_otu_taxonomy.txt as HeaderlessTSVTaxonomyFormat to ref-taxonomy.qza
+Saved FeatureData[Sequence] to: ../rep-seqs.qza
+Saved TaxonomicClassifier to: classifier.qza
+Saved FeatureData[Taxonomy] to: taxonomy.qza
+Saved Visualization to: taxonomy.qzv
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ ls
+rep-seqs.qza           sample-metadata.tsv    training-feature-classifiers
+runQiime2_taxonomy.sh  silva-138-99-seqs.qza
+runQiime_demux.sh      silva-138-99-tax.qza
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial$ cd training-feature-classifiers/
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial/training-feature-classifiers$ ls
+85_otus.fasta  85_otu_taxonomy.txt  ref-taxonomy.qza  taxonomy.qzv
+85_otus.qza    classifier.qza       taxonomy.qza
+(qiime2-amplicon-2024.5) rich1375@dev-amd24-h200:/mnt/scratch/rich1375/qiime2-fmt-tutorial/training-feature-classifiers$ 
+
+
 https://www.microbiomeatlas.org/species_summary.php
 
 
