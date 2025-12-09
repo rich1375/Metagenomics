@@ -1,0 +1,150 @@
+Question 1 (1 point) 
+ Saved
+We will be running the Kraken2 tutorial here on identifying pathogens in eyes (cornea transplants):
+
+https://github.com/martin-steinegger/kraken-protocol
+
+The data is here:
+
+https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP278251&o=acc_s%3Aa
+
+The slurm script to run the entire tutorial on the HPCC is located in Session 6 as runPathogenTutorial.sb.  Create a directory in your scratch and sbatch the script.  It will take a little while to run (mostly transferring real data files).
+
+When the script is finished, do ls -lah on the files in the directory and copy/paste the list here.
+rich1375@dev-amd20:/mnt/scratch/rich1375$ cd Session6
+
+rich1375@dev-amd20:/mnt/scratch/rich1375/Session6$ ls -lah
+
+total 12G
+
+drwxr-x--- 3 rich1375 CEDL-lab 4.0K Dec&nbsp; 2 08:47 .
+
+drwx------ 9 rich1375 CEDL-lab 4.0K Dec&nbsp; 2 08:50 ..
+
+-rw-r----- 1 rich1375 CEDL-lab 5.5G Jan 20&nbsp; 2021 k2_standard_eupath_20201202.tar.gz
+
+drwxr-x--- 2 rich1375 CEDL-lab 4.0K Dec&nbsp; 2 08:40 protocol_db
+
+-rw-r----- 1 rich1375 CEDL-lab 1.5K Dec&nbsp; 2 08:10 runPathogenTutorial.sb
+
+-rw-r----- 1 rich1375 CEDL-lab 8.7M Dec&nbsp; 2 08:47 slurm-64979308.out
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 97M Dec&nbsp; 2 08:13 SRR12486971_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 97M Dec&nbsp; 2 08:13 SRR12486971_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 201K Dec&nbsp; 2 08:41 SRR12486971.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 256M Dec&nbsp; 2 08:41 SRR12486971.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab 100M Dec&nbsp; 2 08:15 SRR12486972_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 100M Dec&nbsp; 2 08:15 SRR12486972_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 99K Dec&nbsp; 2 08:42 SRR12486972.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 487M Dec&nbsp; 2 08:42 SRR12486972.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 48M Dec&nbsp; 2 08:16 SRR12486974_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 48M Dec&nbsp; 2 08:16 SRR12486974_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 59K Dec&nbsp; 2 08:42 SRR12486974.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 214M Dec&nbsp; 2 08:42 SRR12486974.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 35M Dec&nbsp; 2 08:17 SRR12486978_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 36M Dec&nbsp; 2 08:17 SRR12486978_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 50K Dec&nbsp; 2 08:42 SRR12486978.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 168M Dec&nbsp; 2 08:42 SRR12486978.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 55M Dec&nbsp; 2 08:18 SRR12486979_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 55M Dec&nbsp; 2 08:18 SRR12486979_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 168K Dec&nbsp; 2 08:43 SRR12486979.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 160M Dec&nbsp; 2 08:43 SRR12486979.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab 137M Dec&nbsp; 2 08:21 SRR12486981_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 137M Dec&nbsp; 2 08:21 SRR12486981_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 193K Dec&nbsp; 2 08:44 SRR12486981.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 442M Dec&nbsp; 2 08:44 SRR12486981.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab 136M Dec&nbsp; 2 08:24 SRR12486983_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 136M Dec&nbsp; 2 08:24 SRR12486983_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 202K Dec&nbsp; 2 08:44 SRR12486983.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 359M Dec&nbsp; 2 08:44 SRR12486983.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab 109M Dec&nbsp; 2 08:27 SRR12486988_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 109M Dec&nbsp; 2 08:27 SRR12486988_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 73K Dec&nbsp; 2 08:45 SRR12486988.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 532M Dec&nbsp; 2 08:45 SRR12486988.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 72M Dec&nbsp; 2 08:29 SRR12486989_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 72M Dec&nbsp; 2 08:29 SRR12486989_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab&nbsp; 82K Dec&nbsp; 2 08:46 SRR12486989.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 347M Dec&nbsp; 2 08:46 SRR12486989.kraken2
+
+-rw-r----- 1 rich1375 CEDL-lab 283M Dec&nbsp; 2 08:35 SRR12486990_1.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 283M Dec&nbsp; 2 08:35 SRR12486990_2.fastq.gz
+
+-rw-r----- 1 rich1375 CEDL-lab 324K Dec&nbsp; 2 08:47 SRR12486990.k2report
+
+-rw-r----- 1 rich1375 CEDL-lab 686M Dec&nbsp; 2 08:47 SRR12486990.kraken2
+
+Question 2 (1 point) 
+ Saved
+Kraken2 reports are visualized using Shiny in R.  If you already know how to use Shiny, then go ahead and install Pavian (https://github.com/fbreitwieser/pavian?tab=readme-ov-file) and click through the reports.  If you haven't used Shiny before, then feel free to use the web server at https://fbreitwieser.shinyapps.io/pavian/ and download your k2reports from the HPCC to your laptop and then from your laptop to the web server.
+
+Click through the visualized reports.  Look back at the https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP278251&o=acc_s%3Aametadata on the individual samples.  Did you find the pathogens in each sample?  Summarize your results and interpret. 
+
+Question 3 (1 point) 
+ Saved
+We will be running the Kraken2 tutorial here on for looking across an ecosystem and calculating alpha/beta diversity:
+
+https://github.com/martin-steinegger/kraken-protocol
+
+The data is here:
+
+https://trace.ncbi.nlm.nih.gov/Traces/study/?acc=SRP162022&o=acc_s%3Aa
+
+The slurm script to run the entire tutorial on the HPCC is located in Session 6 as runMicrobiomeTutorial.sb.  Create a directory in your scratch (different from the pathogen tutorial) and sbatch the script.  It will take a little while to run.
+
+A big thank-you to Nick Panchy and the folks at the Bioinformatics Core who created yml file and are hosting it on the HPCC so it is easier to install Bracken and KrakenTools, which are installed through conda and are not eligible to be used through the module spider system.  The common_data directory on the research disk contains files and software that is useful to many researchers.  Feel free to surf through the directory.
+
+When the script is finished, do ls -lah on the files in the directory and copy/paste the list here.
+
+q4Now visualize these reports on Pavian.
+
+Click through the visualized reports.  Also look at the alpha and beta diversity reports as well as the taxonomy.  Summarize your results and interpret. 
+I am having issues visualizing the reports, but based on what I have observed so far a majority of the microbial species identified belong to common gut micobes, (ie Actinobacteria, Firmicutes, Proteobacteria). Kocuria species, Cellulosimicrobium cellulans,&nbsp;Cutibacterium acnes, and Burkholderia cepacia were some of the common bacteria identified, while Aspergillus flavus and Aspergillus oryzae were common fungi identified in the group.
+
+Question 5 (1 point) 
+ Saved
+All of these reports were generated using the database in the tutorial.  But that database is a bit old now and there is a new database (don't worry, you don't have to recalculate for this assignment).
+
+Look at the webpage listing the various database options:
+
+https://benlangmead.github.io/aws-indexes/k2
+
+What database might you use to rerun the tutorial to make it modern?
+
+What database might you use to do metagenomics on your own research or a project of interest?
+I would be intersted in using the updated Standard RefSeq databsees to see how it compares to the older version ran. I would be interested in running the GTDB v226 to use in microbiome study to observe and identify the micobial ecology and bacterial or archeal classification of gut microbiome of diseased vs healthy patients.&nbsp;
